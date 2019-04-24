@@ -1,3 +1,3 @@
 import { bro } from './bro';
 
-console.log(bro('dude'));
+console.log(bro('Sup'));
