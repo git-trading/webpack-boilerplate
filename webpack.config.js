@@ -1,6 +1,7 @@
-const path = require('path');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require('path'),
+HtmlWebPackPlugin = require('html-webpack-plugin'),
+MiniCssExtractPlugin = require("mini-css-extract-plugin"),
+OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
   devServer: {
@@ -60,6 +61,14 @@ module.exports = {
       // both options are optional
       filename: "[name].css",
       chunkFilename: "[id].css"
-    })
+    }),
+    new OptimizeCssAssetsPlugin({
+      assetNameRegExp: /\.optimize\.css$/g,
+      cssProcessor: require('cssnano'),
+      cssProcessorPluginOptions: {
+        preset: ['default', { discardComments: { removeAll: true } }],
+      },
+      canPrint: true
+    }),
   ],
 }
